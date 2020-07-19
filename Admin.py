@@ -39,6 +39,8 @@ class admin(QMainWindow):
         self.no.clicked.connect(self.openHome)
         self.showVid.clicked.connect(self.callPlayer)
         self.delVid.clicked.connect(self.del_Old_Vid)
+        self.pushButton.clicked.connect(self.addUser)
+        self.delUser.clicked.connect(self.del_user)
         
     def openHome(self):
         self.stop_cam()
@@ -63,7 +65,7 @@ class admin(QMainWindow):
     
     def show_Old_Vid(self):
         self.tabWidget.setCurrentIndex(2)
-        conn = sqlite3.connect('capstoneSQLDB.db')
+        conn = sqlite3.connect('capstoneSQLDB2.db')
         cur = conn.cursor()
         data=cur.execute('SELECT Code,Date,Time,Cam FROM VidHistory')
         if data:
@@ -80,7 +82,7 @@ class admin(QMainWindow):
         
     def show_users(self):
         self.tabWidget.setCurrentIndex(5)
-        conn = sqlite3.connect('capstoneSQLDB.db')
+        conn = sqlite3.connect('capstoneSQLDB2.db')
         cur = conn.cursor()
         data=cur.execute('SELECT User,Password,Name,Type FROM Users')
         if data:
@@ -97,12 +99,49 @@ class admin(QMainWindow):
         
     def del_Old_Vid(self):
         code=self.lineEdit_2.text()     
-        conn = sqlite3.connect('capstoneSQLDB.db')
+        conn = sqlite3.connect('capstoneSQLDB2.db')
         cur = conn.cursor()
         cur.execute('Delete FROM VidHistory where code= ?',(code,))
         conn.commit()
         cur.close()
         self.show_Old_Vid()
+        
+    def del_user(self):
+        conn = sqlite3.connect('capstoneSQLDB2.db')
+        cur = conn.cursor()
+        uId=self.lineEdit_3.text()
+        if uId.strip=="" :
+            self.label_16.setText("ENTER ALL FIELDS!!")
+        cur.execute('SELECT Name FROM Users where user=?',(uId,))
+        temp=cur.fetchone()
+        if temp is not None:
+            self.label_16.setText("USER ID NOT VALID!!")
+        #cur.execute('Delete FROM VidHistory where code= ?',(code,))
+        #conn.commit()
+        cur.close()
+        self.show_users()
+        
+    def addUser(self):  
+        conn = sqlite3.connect('capstoneSQLDB2.db')
+        cur = conn.cursor()
+        userIn=self.userIn.text()
+        passIn=self.passIN.text()
+        nameIn=self.nameIn.text()
+        typeIn=self.typeIn.currentText()
+        if userIn.strip=="" or passIn.strip=="" or nameIn.strip=="" or typeIn=="SELECT":
+            self.pop.setText("ENTER ALL FIELDS!!")
+        cur.execute('SELECT Name FROM Users where user=?',(userIn,))
+        temp=cur.fetchone()
+        if temp is not None:
+            self.pop.setText("USER ID ALREADY TAKEN!!")
+        elif typeIn!="SELECT":
+            self.pop.setText("")
+            cur.execute('''INSERT INTO Users (User, Password, Name,Type )
+                    VALUES (?,?,?,?)''', (userIn,passIn,nameIn,typeIn))
+            conn.commit()            
+            
+        cur.close()
+        self.show_users()
         
 
     def Dark_Blue_Theme(self):
@@ -176,7 +215,7 @@ class admin(QMainWindow):
         self.window2.show()
         
     def callPlayer(self):
-        conn = sqlite3.connect('capstoneSQLDB.db')
+        conn = sqlite3.connect('capstoneSQLDB2.db')
         cur = conn.cursor()
         code=self.lineEdit.text()
         cur.execute('SELECT Loc FROM VidHistory WHERE Code = ? ', (code,))
