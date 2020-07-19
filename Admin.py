@@ -27,6 +27,8 @@ class admin(QMainWindow):
         self.oldFPage.clicked.connect(self.openOFoot)
         self.pathPage.clicked.connect(self.openTracker)
         self.logoutPage.clicked.connect(self.openLogout)
+        self.sesorPage.clicked.connect(self.openSensors)
+        self.userPage.clicked.connect(self.openUsers)
         self.darkO.clicked.connect(self.Dark_Orange_Theme)
         self.darkB.clicked.connect(self.Dark_Blue_Theme)
         self.darkG.clicked.connect(self.Dark_Gray_Theme)
@@ -51,7 +53,13 @@ class admin(QMainWindow):
         self.tabWidget.setCurrentIndex(3)
     def openLogout(self):
         self.stop_cam()
+        self.tabWidget.setCurrentIndex(6)
+    def openSensors(self):
+        self.stop_cam()
         self.tabWidget.setCurrentIndex(4)
+    def openUsers(self):
+        self.stop_cam()
+        self.tabWidget.setCurrentIndex(5)
     
     def show_Old_Vid(self):
         self.tabWidget.setCurrentIndex(2)
