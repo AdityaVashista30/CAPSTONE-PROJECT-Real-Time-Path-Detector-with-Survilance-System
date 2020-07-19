@@ -65,16 +65,19 @@ class Login(QMainWindow):
         self.setStyleSheet(style)
     
     def start_cam(self):
-        self.camOn=True
-        self.capture=cv2.VideoCapture(0,cv2.CAP_DSHOW) #0 =default #1,2,3 =Extra Webcam
-        i=0
-        while i<12000:
-            i+=1
-        self.capture.set(cv2.CAP_PROP_FRAME_WIDTH,self.video_size.width())
-        self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT,self.video_size.height())
-        self.timer =QTimer(self)
-        self.timer.timeout.connect(self.update_frame)
-        self.timer.start(0.05)
+        if self.camBox.currentText() !="SELECT":
+            self.camOn=True
+            if self.camBox.currentText() =="WEB CAM (TEMP)":
+                self.capture=cv2.VideoCapture(0,cv2.CAP_DSHOW) 
+ 
+            i=0
+            while i<22000:
+                i+=1
+            self.capture.set(cv2.CAP_PROP_FRAME_WIDTH,self.video_size.width())
+            self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT,self.video_size.height())
+            self.timer =QTimer(self)
+            self.timer.timeout.connect(self.update_frame)
+            self.timer.start(0.01)
 
     def update_frame(self):
         ret,frame=self.capture.read()
