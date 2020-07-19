@@ -1,10 +1,11 @@
 import sys
 from PyQt5 import QtCore
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot,QSize, QTimer
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QDialog, QApplication,QMainWindow
 from PyQt5.uic import loadUi
 import sqlite3
+import cv2
 
 class Login(QMainWindow):
     def __init__(self):
@@ -15,6 +16,9 @@ class Login(QMainWindow):
         style = open('themes/qdark.css' , 'r')
         style = style.read()
         self.setStyleSheet(style)
+        self.camOn=False
+        self.video_size=QSize(601,341)
+        self.image=None
     
     def handleButtons(self):
         self.homePage.clicked.connect(self.openHome)
@@ -26,6 +30,8 @@ class Login(QMainWindow):
         self.darkB.clicked.connect(self.Dark_Blue_Theme)
         self.darkG.clicked.connect(self.Dark_Gray_Theme)
         self.qdark.clicked.connect(self.QDark_Theme)
+        self.showLive.clicked.connect(self.start_cam)
+        self.pauseLive.clicked.connect(self.stop_cam)
         
     def openHome(self):
         self.tabWidget.setCurrentIndex(0)
@@ -57,6 +63,40 @@ class Login(QMainWindow):
         style = open('themes/qdark.css' , 'r')
         style = style.read()
         self.setStyleSheet(style)
+    
+    def start_cam(self):
+        self.camOn=True
+        self.capture=cv2.VideoCapture(0,cv2.CAP_DSHOW) #0 =default #1,2,3 =Extra Webcam
+        i=0
+        while i<12000:
+            i+=1
+        self.capture.set(cv2.CAP_PROP_FRAME_WIDTH,self.video_size.width())
+        self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT,self.video_size.height())
+        self.timer =QTimer(self)
+        self.timer.timeout.connect(self.update_frame)
+        self.timer.start(0.05)
+
+    def update_frame(self):
+        ret,frame=self.capture.read()
+        self.image=cv2.cvtColor(frame,1)
+        qformat = QImage.Format_Indexed8
+        if len(self.image.shape) == 3:  
+            if (self.image.shape[2]) == 4:
+                qformat = QImage.Format_RGBA8888
+            else:
+                qformat = QImage.Format_RGB888
+        
+        img = QImage(self.image, self.image.shape[1], self.image.shape[0],
+                     self.image.strides[0], qformat)
+        img = img.rgbSwapped()
+        self.imgLabel.setPixmap(QPixmap.fromImage(img))
+        self.imgLabel.setScaledContents(True)
+
+    def stop_cam(self):
+        self.camOn=False
+        self.timer.stop()
+        self.capture.release()
+
 
 
 
