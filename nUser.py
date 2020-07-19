@@ -34,6 +34,7 @@ class nuser(QMainWindow):
         self.showLive.clicked.connect(self.start_cam)
         self.pauseLive.clicked.connect(self.stop_cam)
         self.yes.clicked.connect(self.logoutYes)
+        self.no.clicked.connect(self.openHome)
         
     def openHome(self):
         self.stop_cam()
