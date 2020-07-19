@@ -59,7 +59,7 @@ class admin(QMainWindow):
         self.tabWidget.setCurrentIndex(4)
     def openUsers(self):
         self.stop_cam()
-        self.tabWidget.setCurrentIndex(5)
+        self.show_users()
     
     def show_Old_Vid(self):
         self.tabWidget.setCurrentIndex(2)
@@ -76,6 +76,23 @@ class admin(QMainWindow):
 
                 row_position = self.vidTable.rowCount()
                 self.vidTable.insertRow(row_position)
+        cur.close()
+        
+    def show_users(self):
+        self.tabWidget.setCurrentIndex(5)
+        conn = sqlite3.connect('capstoneSQLDB.db')
+        cur = conn.cursor()
+        data=cur.execute('SELECT User,Password,Name,Type FROM Users')
+        if data:
+            self.userTable.setRowCount(0)
+            self.userTable.insertRow(0)
+            for row , form in enumerate(data):
+                for column , item in enumerate(form) :
+                    self.userTable.setItem(row , column , QTableWidgetItem(str(item)))
+                    column += 1
+
+                row_position = self.userTable.rowCount()
+                self.userTable.insertRow(row_position)
         cur.close()
         
     def del_Old_Vid(self):
