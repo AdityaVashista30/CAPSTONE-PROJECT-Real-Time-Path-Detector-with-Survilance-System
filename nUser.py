@@ -10,6 +10,9 @@ class Login(QMainWindow):
     def __init__(self):
         super(Login,self).__init__()
         loadUi('nUser.ui',self)
+        style = open('themes/qdark.css' , 'r')
+        style = style.read()
+        self.setStyleSheet(style)
 
 
 
