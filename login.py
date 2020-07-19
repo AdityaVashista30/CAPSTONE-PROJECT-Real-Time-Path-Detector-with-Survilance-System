@@ -36,11 +36,13 @@ class Login(QMainWindow):
                 from Admin import admin
                 self.window2 = admin()
                 self.close()
+                self.window2.setWindowTitle('ADMIN WINDOW')
                 self.window2.show()
             else:
                 from nUser import nuser
                 self.window2 = nuser()
                 self.close()
+                self.window2.setWindowTitle('USER WINDOW')
                 self.window2.show()
 
         
