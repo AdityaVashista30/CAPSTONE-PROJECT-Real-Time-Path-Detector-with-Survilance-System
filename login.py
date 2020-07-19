@@ -33,7 +33,10 @@ class Login(QMainWindow):
              self.label.setText("INVALID USER/Password")
         else:
             if row[1]=="Admin":
-                self.label.setText("Admin Login Succesful") #TEMP
+                from Admin import admin
+                self.window2 = admin()
+                self.close()
+                self.window2.show()
             else:
                 from nUser import nuser
                 self.window2 = nuser()
