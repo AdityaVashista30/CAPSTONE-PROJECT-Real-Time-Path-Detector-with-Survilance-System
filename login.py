@@ -14,6 +14,9 @@ class Login(QMainWindow):
         super(Login,self).__init__()
         loadUi('login.ui',self)
         self.pushButton.clicked.connect(self.checkLogin)
+        style = open('themes/darkorange.css' , 'r')
+        style = style.read()
+        self.setStyleSheet(style)
 
 
     
@@ -38,6 +41,7 @@ class Login(QMainWindow):
 def main():        
     app = QApplication(sys.argv)
     window=Login()
+    window.setWindowTitle('Login')
     window.show()
     app.exec_()
     
