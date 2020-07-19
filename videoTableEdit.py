@@ -15,11 +15,11 @@ def AddVideo(cam,loc):
     cur.execute('''INSERT INTO VidHistory (Code, Date, Time,Cam,Loc )
                 VALUES (?,?,?,?,?)''', (code[0],date,time,cam,loc))
     conn.commit()
-    cur.close
+    cur.close()
     
 
 
 
 ##FOR TESTING
 AddVideo(0,"H:\\Projects\\object detection using SSD\\sample\\funny_dog.mp4")
-AddVideo(0,"H:\\Projects\\object detection using SSD\\sample\\horses_in_desert.mp4")
+AddVideo(0,"H:\\Projects\\object detection using SSD\\sample\\horses_in_desert.mp4")   
