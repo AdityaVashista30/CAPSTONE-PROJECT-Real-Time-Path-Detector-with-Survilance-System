@@ -46,8 +46,6 @@ class nuser(QMainWindow):
     def openOFoot(self):
         self.stop_cam()
         self.show_Old_Vid()
-
-        
     def openTracker(self):
         self.stop_cam()
         self.tabWidget.setCurrentIndex(3)
@@ -142,10 +140,17 @@ class nuser(QMainWindow):
         self.window2.show()
         
     def callPlayer(self):
-        self.window3 = Player("H:\\Projects\\object detection using SSD\\sample\\horses_in_desert.mp4")#TEMP
-        self.window3.resize(640,480)
-        self.window3.show()
-
+        conn = sqlite3.connect('capstone.db')
+        cur = conn.cursor()
+        code=self.lineEdit.text()
+        cur.execute('SELECT Loc FROM VidHistory WHERE Code = ? ', (code,))
+        loc =cur.fetchone()
+        if loc is not None:
+            self.window3 = Player(loc[0])
+            self.window3.resize(640,480)
+            self.window3.show()
+        cur.close()
+        
 
 
 def main():        
