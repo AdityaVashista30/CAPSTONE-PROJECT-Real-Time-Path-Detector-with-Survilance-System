@@ -34,14 +34,22 @@ class Login(QMainWindow):
         self.pauseLive.clicked.connect(self.stop_cam)
         
     def openHome(self):
+        self.stop_cam()
+        self.reset_cam()
         self.tabWidget.setCurrentIndex(0)
     def openLFoot(self):
         self.tabWidget.setCurrentIndex(1)
     def openOFoot(self):
+        self.stop_cam()
+        self.reset_cam()
         self.tabWidget.setCurrentIndex(2)
     def openTracker(self):
+        self.stop_cam()
+        self.reset_cam()
         self.tabWidget.setCurrentIndex(3)
     def openLogout(self):
+        self.stop_cam()
+        self.reset_cam()
         self.tabWidget.setCurrentIndex(4)
     
     def Dark_Blue_Theme(self):
@@ -96,9 +104,20 @@ class Login(QMainWindow):
         self.imgLabel.setScaledContents(True)
 
     def stop_cam(self):
-        self.camOn=False
-        self.timer.stop()
-        self.capture.release()
+        if self.camOn:
+            self.capture.release()
+            self.camOn=False
+            self.timer.stop()
+            img=cv2.imread("reset.png")
+            qformat = QImage.Format_RGB888
+            img = QImage(self.image, self.image.shape[1], self.image.shape[0],
+                     self.image.strides[0], qformat)
+            img = img.rgbSwapped()
+            self.imgLabel.setPixmap(QPixmap.fromImage(img))
+            self.imgLabel.setScaledContents(True)
+            
+    def reset_cam(self):
+        self.image=None
 
 
 
