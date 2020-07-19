@@ -7,9 +7,9 @@ from PyQt5.uic import loadUi
 import sqlite3
 import cv2
 
-class Login(QMainWindow):
+class nuser(QMainWindow):
     def __init__(self):
-        super(Login,self).__init__()
+        super(nuser,self).__init__()
         loadUi('nUser.ui',self)
         self.tabWidget.tabBar().setVisible(False)
         self.handleButtons()
@@ -118,7 +118,7 @@ class Login(QMainWindow):
 
 def main():        
     app = QApplication(sys.argv)
-    window=Login()
+    window=nuser()
     window.setWindowTitle('Login')
     window.show()
     app.exec_()
