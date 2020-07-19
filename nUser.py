@@ -59,6 +59,7 @@ class nuser(QMainWindow):
 
                 row_position = self.vidTable.rowCount()
                 self.vidTable.insertRow(row_position)
+        cur.close()
 
 
         
