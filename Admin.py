@@ -54,7 +54,7 @@ class admin(QMainWindow):
     
     def show_Old_Vid(self):
         self.tabWidget.setCurrentIndex(2)
-        conn = sqlite3.connect('capstone.db')
+        conn = sqlite3.connect('capstoneDB.db')
         cur = conn.cursor()
         data=cur.execute('SELECT Code,Date,Time,Cam FROM VidHistory')
         if data:
@@ -68,6 +68,10 @@ class admin(QMainWindow):
                 row_position = self.vidTable.rowCount()
                 self.vidTable.insertRow(row_position)
         cur.close()
+        
+    def del_Old_Vid(self):
+        code=self.lineEdit_2.text()
+        
 
     def Dark_Blue_Theme(self):
         style = open('themes/darkblue.css' , 'r')
@@ -140,7 +144,7 @@ class admin(QMainWindow):
         self.window2.show()
         
     def callPlayer(self):
-        conn = sqlite3.connect('capstone.db')
+        conn = sqlite3.connect('capstoneDB.db')
         cur = conn.cursor()
         code=self.lineEdit.text()
         cur.execute('SELECT Loc FROM VidHistory WHERE Code = ? ', (code,))
