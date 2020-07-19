@@ -7,6 +7,7 @@ from PyQt5.uic import loadUi
 import sqlite3
 import cv2
 from login import Login
+from player import Player
 
 class nuser(QMainWindow):
     def __init__(self):
@@ -35,6 +36,7 @@ class nuser(QMainWindow):
         self.pauseLive.clicked.connect(self.stop_cam)
         self.yes.clicked.connect(self.logoutYes)
         self.no.clicked.connect(self.openHome)
+        self.showVid.clicked.connect(self.callPlayer)
         
     def openHome(self):
         self.stop_cam()
@@ -119,7 +121,11 @@ class nuser(QMainWindow):
         self.window2 = Login()
         self.close()
         self.window2.show()
-
+        
+    def callPlayer(self):
+        self.window3 = Player("H:\\Projects\\object detection using SSD\\sample\\horses_in_desert.mp4")#TEMP
+        self.window3.resize(640,480)
+        self.window3.show()
 
 
 
