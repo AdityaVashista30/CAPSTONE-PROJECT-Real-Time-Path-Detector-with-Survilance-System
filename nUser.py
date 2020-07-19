@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QDialog, QApplication,QMainWindow
 from PyQt5.uic import loadUi
 import sqlite3
 import cv2
+from login import Login
 
 class nuser(QMainWindow):
     def __init__(self):
@@ -32,6 +33,7 @@ class nuser(QMainWindow):
         self.qdark.clicked.connect(self.QDark_Theme)
         self.showLive.clicked.connect(self.start_cam)
         self.pauseLive.clicked.connect(self.stop_cam)
+        self.yes.clicked.connect(self.logoutYes)
         
     def openHome(self):
         self.stop_cam()
@@ -111,7 +113,11 @@ class nuser(QMainWindow):
             self.imgLabel.setPixmap(QPixmap.fromImage(img))
             self.imgLabel.setScaledContents(True)
             self.image=None
-            
+    
+    def logoutYes(self):
+        self.window2 = Login()
+        self.close()
+        self.window2.show()
 
 
 
@@ -119,7 +125,7 @@ class nuser(QMainWindow):
 def main():        
     app = QApplication(sys.argv)
     window=nuser()
-    window.setWindowTitle('Login')
+    window.setWindowTitle('USER WINDOW')
     window.show()
     app.exec_()
     
