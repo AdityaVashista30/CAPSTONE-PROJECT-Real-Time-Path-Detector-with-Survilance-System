@@ -5,7 +5,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QDialog, QApplication,QMainWindow
 from PyQt5.uic import loadUi
 import sqlite3
-from player import Player
+from nUser import nuser 
 
 class Login(QMainWindow):
     def __init__(self):
@@ -33,7 +33,9 @@ class Login(QMainWindow):
             if row[1]=="Admin":
                 self.label.setText("Admin Login Succesful") #TEMP
             else:
-                self.label.setText("User Login Succesful") #TEMP
+                self.window2 = nuser()
+                self.close()
+                self.window2.show()
 
         
         
