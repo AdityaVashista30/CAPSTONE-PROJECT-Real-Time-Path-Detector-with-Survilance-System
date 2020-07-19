@@ -5,12 +5,11 @@ from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QDialog, QApplication,QMainWindow
 from PyQt5.uic import loadUi
 import sqlite3
-from nUser import nuser 
+
 
 class Login(QMainWindow):
     def __init__(self):
-        self.conn = sqlite3.connect('capstone.db')
-        self.cur = self.conn.cursor()
+        
         super(Login,self).__init__()
         loadUi('login.ui',self)
         self.pushButton.clicked.connect(self.checkLogin)
@@ -21,15 +20,19 @@ class Login(QMainWindow):
 
     
     def checkLogin(self):
+        conn = sqlite3.connect('capstone.db')
+        cur = conn.cursor()
         user=self.user.text()
         password=self.password.text()
-        self.cur.execute('SELECT Password,Type FROM Users WHERE User = ? ', (user,))
-        row = self.cur.fetchone()
+        cur.execute('SELECT Password,Type FROM Users WHERE User = ? ', (user,))
+        row =cur.fetchone()
+        cur.close()
         if row is None:
             self.label.setText("INVALID USER/Password")
         elif str(row[0])!=password:
              self.label.setText("INVALID USER/Password")
         else:
+            from nUser import nuser
             if row[1]=="Admin":
                 self.label.setText("Admin Login Succesful") #TEMP
             else:
