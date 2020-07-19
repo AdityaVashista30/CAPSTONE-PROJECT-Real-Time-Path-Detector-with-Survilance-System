@@ -22,6 +22,10 @@ class Login(QMainWindow):
         self.oldFPage.clicked.connect(self.openOFoot)
         self.pathPage.clicked.connect(self.openTracker)
         self.logoutPage.clicked.connect(self.openLogout)
+        self.darkO.clicked.connect(self.Dark_Orange_Theme)
+        self.darkB.clicked.connect(self.Dark_Blue_Theme)
+        self.darkG.clicked.connect(self.Dark_Gray_Theme)
+        self.qdark.clicked.connect(self.QDark_Theme)
         
     def openHome(self):
         self.tabWidget.setCurrentIndex(0)
@@ -33,6 +37,26 @@ class Login(QMainWindow):
         self.tabWidget.setCurrentIndex(3)
     def openLogout(self):
         self.tabWidget.setCurrentIndex(4)
+    
+    def Dark_Blue_Theme(self):
+        style = open('themes/darkblue.css' , 'r')
+        style = style.read()
+        self.setStyleSheet(style)
+
+    def Dark_Gray_Theme(self):
+        style = open('themes/darkgray.css' , 'r')
+        style = style.read()
+        self.setStyleSheet(style)
+
+    def Dark_Orange_Theme(self):
+        style = open('themes/darkorange.css' , 'r')
+        style = style.read()
+        self.setStyleSheet(style)
+
+    def QDark_Theme(self):
+        style = open('themes/qdark.css' , 'r')
+        style = style.read()
+        self.setStyleSheet(style)
 
 
 
