@@ -45,6 +45,17 @@ class nuser(QMainWindow):
         self.tabWidget.setCurrentIndex(1)
     def openOFoot(self):
         self.stop_cam()
+        self.show_Old_Vid()
+
+        
+    def openTracker(self):
+        self.stop_cam()
+        self.tabWidget.setCurrentIndex(3)
+    def openLogout(self):
+        self.stop_cam()
+        self.tabWidget.setCurrentIndex(4)
+    
+    def show_Old_Vid(self):
         self.tabWidget.setCurrentIndex(2)
         conn = sqlite3.connect('capstone.db')
         cur = conn.cursor()
@@ -61,15 +72,6 @@ class nuser(QMainWindow):
                 self.vidTable.insertRow(row_position)
         cur.close()
 
-
-        
-    def openTracker(self):
-        self.stop_cam()
-        self.tabWidget.setCurrentIndex(3)
-    def openLogout(self):
-        self.stop_cam()
-        self.tabWidget.setCurrentIndex(4)
-    
     def Dark_Blue_Theme(self):
         style = open('themes/darkblue.css' , 'r')
         style = style.read()
