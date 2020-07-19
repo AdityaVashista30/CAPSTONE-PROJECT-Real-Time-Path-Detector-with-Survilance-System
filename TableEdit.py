@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 def AddVideo(cam,loc):
-    conn = sqlite3.connect('capstoneSQLDB.db')
+    conn = sqlite3.connect('capstoneSQLDB2.db')
     cur = conn.cursor()
     cur.execute('SELECT Loc FROM VidHistory where loc=?',(loc,))
     temp=cur.fetchone()
@@ -21,7 +21,7 @@ def AddVideo(cam,loc):
     cur.close()
     
 def DelVideo(code):
-    conn = sqlite3.connect('capstoneSQLDB.db')
+    conn = sqlite3.connect('capstoneSQLDB2.db')
     cur = conn.cursor()
     cur.execute('Delete FROM VidHistory where code= ?',(code,))
     conn.commit()
@@ -31,4 +31,4 @@ def DelVideo(code):
 ##FOR TESTING
 AddVideo(0,"H:\\Projects\\object detection using SSD\\sample\\funny_dog.mp4")
 AddVideo(0,"H:\\Projects\\object detection using SSD\\sample\\horses_in_desert.mp4")   
-DelVideo(4)
+DelVideo(7)
