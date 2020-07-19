@@ -2,7 +2,7 @@ import sys
 from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSlot,QSize, QTimer
 from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtWidgets import QDialog, QApplication,QMainWindow
+from PyQt5.QtWidgets import QDialog, QApplication,QMainWindow,QTableWidgetItem
 from PyQt5.uic import loadUi
 import sqlite3
 import cv2
@@ -46,6 +46,22 @@ class nuser(QMainWindow):
     def openOFoot(self):
         self.stop_cam()
         self.tabWidget.setCurrentIndex(2)
+        conn = sqlite3.connect('capstone.db')
+        cur = conn.cursor()
+        data=cur.execute('SELECT Code,Date,Time,Cam FROM VidHistory')
+        if data:
+            self.vidTable.setRowCount(0)
+            self.vidTable.insertRow(0)
+            for row , form in enumerate(data):
+                for column , item in enumerate(form) :
+                    self.vidTable.setItem(row , column , QTableWidgetItem(str(item)))
+                    column += 1
+
+                row_position = self.vidTable.rowCount()
+                self.vidTable.insertRow(row_position)
+
+
+        
     def openTracker(self):
         self.stop_cam()
         self.tabWidget.setCurrentIndex(3)
