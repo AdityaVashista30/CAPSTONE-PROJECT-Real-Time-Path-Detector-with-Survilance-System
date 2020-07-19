@@ -17,9 +17,15 @@ def AddVideo(cam,loc):
     conn.commit()
     cur.close()
     
-
+def DelVideo(code):
+    conn = sqlite3.connect('capstone.db')
+    cur = conn.cursor()
+    cur.execute('Delete FROM VidHistory where code= ?',(code,))
+    conn.commit()
+    cur.close()
 
 
 ##FOR TESTING
 AddVideo(0,"H:\\Projects\\object detection using SSD\\sample\\funny_dog.mp4")
 AddVideo(0,"H:\\Projects\\object detection using SSD\\sample\\horses_in_desert.mp4")   
+DelVideo(12)
