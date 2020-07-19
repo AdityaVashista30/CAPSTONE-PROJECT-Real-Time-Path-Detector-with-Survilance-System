@@ -54,7 +54,7 @@ class nuser(QMainWindow):
     
     def show_Old_Vid(self):
         self.tabWidget.setCurrentIndex(2)
-        conn = sqlite3.connect('capstone.db')
+        conn = sqlite3.connect('capstoneDB.db')
         cur = conn.cursor()
         data=cur.execute('SELECT Code,Date,Time,Cam FROM VidHistory')
         if data:
@@ -140,7 +140,7 @@ class nuser(QMainWindow):
         self.window2.show()
         
     def callPlayer(self):
-        conn = sqlite3.connect('capstone.db')
+        conn = sqlite3.connect('capstoneDB.db')
         cur = conn.cursor()
         code=self.lineEdit.text()
         cur.execute('SELECT Loc FROM VidHistory WHERE Code = ? ', (code,))
