@@ -6,7 +6,6 @@ from PyQt5.QtWidgets import QDialog, QApplication,QMainWindow,QTableWidgetItem
 from PyQt5.uic import loadUi
 import sqlite3
 import cv2
-from login import Login
 from player import Player
 
 class nuser(QMainWindow):
@@ -134,7 +133,8 @@ class nuser(QMainWindow):
             self.imgLabel.setScaledContents(True)
             self.image=None
     
-    def logoutYes(self):
+    def logoutYes(self):        
+        from login import Login        
         self.window2 = Login()
         self.close()
         self.window2.show()
