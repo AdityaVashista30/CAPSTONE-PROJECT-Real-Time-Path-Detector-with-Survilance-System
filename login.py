@@ -20,7 +20,7 @@ class Login(QMainWindow):
 
     
     def checkLogin(self):
-        conn = sqlite3.connect('capstone.db')
+        conn = sqlite3.connect('capstoneDB.db')
         cur = conn.cursor()
         user=self.user.text()
         password=self.password.text()
