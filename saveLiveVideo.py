@@ -13,14 +13,8 @@ result = cv2.VideoWriter('output.avi',cv2.VideoWriter_fourcc(*'MJPG'), 10, size)
 while(True): 
     ret, frame = video.read() 
     if ret == True:   
-        result.write(frame) 
-  
-        # Display the frame 
-        # saved in the file 
-        cv2.imshow('Frame', frame) 
-  
-        # Press S on keyboard  
-        # to stop the process 
+        result.write(frame)  
+        cv2.imshow('Frame', frame)  
         if cv2.waitKey(1) & 0xFF == ord(' q'): 
             break
   
