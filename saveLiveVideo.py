@@ -22,4 +22,4 @@ video.release()
 result.release() 
 cv2.destroyAllWindows() 
    
-print("The video was successfully saved") 
+#print("The video was successfully saved") 
