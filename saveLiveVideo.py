@@ -8,15 +8,11 @@ frame_width = int(video.get(3))
 frame_height = int(video.get(4)) 
 size = (frame_width, frame_height) 
    
-result = cv2.VideoWriter('filename.avi',cv2.VideoWriter_fourcc(*'MJPG'), 10, size) 
+result = cv2.VideoWriter('output.avi',cv2.VideoWriter_fourcc(*'MJPG'), 10, size) 
     
 while(True): 
     ret, frame = video.read() 
-  
-    if ret == True:  
-  
-        # Write the frame into the 
-        # file 'filename.avi' 
+    if ret == True:   
         result.write(frame) 
   
         # Display the frame 
