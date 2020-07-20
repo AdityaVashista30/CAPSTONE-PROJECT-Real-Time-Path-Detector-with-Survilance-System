@@ -17,12 +17,9 @@ while(True):
         cv2.imshow('Frame', frame)  
         if cv2.waitKey(1) & 0xFF == ord(' q'): 
             break
-  
-    # Break the loop 
+            
 video.release() 
 result.release() 
-    
-# Closes all the frames 
 cv2.destroyAllWindows() 
    
 print("The video was successfully saved") 
