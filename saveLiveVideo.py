@@ -25,7 +25,7 @@ while(True):
   
         # Press S on keyboard  
         # to stop the process 
-        if cv2.waitKey(1) & 0xFF == ord('s'): 
+        if cv2.waitKey(1) & 0xFF == ord(' q'): 
             break
   
     # Break the loop 
