@@ -19,11 +19,6 @@ while(True):
             break
   
     # Break the loop 
-    
-  
-# When everything done, release  
-# the video capture and video  
-# write objects 
 video.release() 
 result.release() 
     
