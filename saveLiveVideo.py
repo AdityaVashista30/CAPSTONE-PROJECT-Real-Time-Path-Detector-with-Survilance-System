@@ -3,12 +3,9 @@ import cv2
 video = cv2.VideoCapture(0) 
 if (video.isOpened() == False):  
     print("Error reading video file") 
-  
-# We need to set resolutions. 
-# so, convert them from float to integer. 
+
 frame_width = int(video.get(3)) 
 frame_height = int(video.get(4)) 
-   
 size = (frame_width, frame_height) 
    
 # Below VideoWriter object will create 
