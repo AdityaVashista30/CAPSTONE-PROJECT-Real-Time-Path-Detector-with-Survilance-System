@@ -1,6 +1,4 @@
 
-# Python program to save a  
-# video using OpenCV 
   
    
 import cv2 
