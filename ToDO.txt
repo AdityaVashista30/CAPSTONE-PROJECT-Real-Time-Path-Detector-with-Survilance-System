@@ -1,5 +1,15 @@
+PHASE ONE:
+
 1. Convert YOLO to Function with input video loc
 2. Delete user entry
 3. Make path tracker UI
 4. Insert Progress Bar
 5. Call YOLO model and show output video and save the result
+
+
+PHASE TWO:
+
+1. Create Feature Extraction
+2. Identify Individual People
+3. Select individual People
+4. Track in multiple recordings
