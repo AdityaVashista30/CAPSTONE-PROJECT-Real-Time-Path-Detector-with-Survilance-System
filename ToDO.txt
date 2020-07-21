@@ -1,4 +1,4 @@
 1. Convert YOLO to Function with input video loc
-2.Delete user entry
+2. Delete user entry
 3. Make path tracker UI
 
