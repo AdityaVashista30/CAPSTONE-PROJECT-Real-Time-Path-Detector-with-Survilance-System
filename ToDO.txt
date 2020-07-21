@@ -1,4 +1,5 @@
 1. Convert YOLO to Function with input video loc
 2. Delete user entry
 3. Make path tracker UI
-
+4. Insert Progress Bar
+5. Call YOLO model and show output video and save the result
