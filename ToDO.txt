@@ -14,3 +14,6 @@ PHASE TWO:
 3. Select individual People
 4. Track in multiple recordings
 5. Create Sensor mangment Screen
+
+
+IF POSSIBLE: INCREASE EFFICIENCY AND REDUCE PROCESSING TIME
