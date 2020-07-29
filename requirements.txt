@@ -7,3 +7,5 @@ scipy==1.1.0
 Pillow
 pyqt==5.9.2
 qtpy==1.9.0
+torch==1.5.1
+torchvision==0.6.1
