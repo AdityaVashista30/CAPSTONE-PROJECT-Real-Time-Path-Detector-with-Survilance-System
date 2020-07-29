@@ -7,6 +7,9 @@ from PyQt5.uic import loadUi
 import sqlite3
 import cv2
 from player import Player
+from timeit import time
+from datetime import datetime
+
 
 class admin(QMainWindow):
     def __init__(self):
@@ -114,10 +117,12 @@ class admin(QMainWindow):
             self.label_16.setText("ENTER ALL FIELDS!!")
         cur.execute('SELECT Name FROM Users where user=?',(uId,))
         temp=cur.fetchone()
-        if temp is not None:
+        if temp is None:
             self.label_16.setText("USER ID NOT VALID!!")
-        #cur.execute('Delete FROM VidHistory where code= ?',(code,))
-        #conn.commit()
+        else:
+            cur.execute('Delete FROM Users where user= ?',(uId,))
+            conn.commit()
+            self.label_16.setText("USER "+uId+" DELETED SUCCESFULLY")
         cur.close()
         self.show_users()
         
@@ -169,18 +174,22 @@ class admin(QMainWindow):
             self.camOn=True
             if self.camBox.currentText() =="WEB CAM (TEMP)":
                 self.capture=cv2.VideoCapture(0,cv2.CAP_DSHOW) 
+            self.Vname="outputVideo//"+str(time.time()).split(".")[0]+".mp4"
  
             i=0
             while i<22000:
                 i+=1
             self.capture.set(cv2.CAP_PROP_FRAME_WIDTH,self.video_size.width())
             self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT,self.video_size.height())
+            self.rec=cv2.VideoWriter(self.Vname,cv2.VideoWriter_fourcc(*'MJPG'),10, (self.video_size.width(),self.video_size.height())) 
             self.timer =QTimer(self)
             self.timer.timeout.connect(self.update_frame)
-            self.timer.start(0.01)
+            self.timer.start(0.005)
 
     def update_frame(self):
         ret,frame=self.capture.read()
+        if ret==True:
+            self.rec.write(frame) 
         self.image=cv2.cvtColor(frame,1)
         qformat = QImage.Format_Indexed8
         if len(self.image.shape) == 3:  
@@ -194,10 +203,28 @@ class admin(QMainWindow):
         img = img.rgbSwapped()
         self.imgLabel.setPixmap(QPixmap.fromImage(img))
         self.imgLabel.setScaledContents(True)
+        conn = sqlite3.connect('capstoneSQLDB2.db')
+        cur = conn.cursor()
+        loc="H:\\Projects\\CAPSTONE"+self.Vname
+        cur.execute('SELECT Loc FROM VidHistory where loc=?',(loc,))
+        temp=cur.fetchone()
+        if temp is None:
+            cur.execute('SELECT code FROM LCODE')
+            code=cur.fetchone()
+            cur.execute('UPDATE LCODE SET code = code + 1 WHERE code = ?',(code[0],))
+            conn.commit()
+            t=datetime.now()
+            date=str(t.date())
+            time=str(t.time())
+            cur.execute('''INSERT INTO VidHistory (Code, Date, Time,Cam,Loc )
+                        VALUES (?,?,?,?,?)''', (code[0],date,time,1,loc))
+            conn.commit()
+        cur.close()
 
     def stop_cam(self):
         if self.camOn:
             self.capture.release()
+            self.rec.release()
             self.camOn=False
             self.timer.stop()
             img=cv2.imread("reset.png")
