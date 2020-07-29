@@ -5,3 +5,5 @@ opencv-python==3.4.4.19
 scikit-learn==0.21.2
 scipy==1.1.0
 Pillow
+pyqt==5.9.2
+qtpy==1.9.0
