@@ -10,7 +10,6 @@ from deep_sort import nn_matching
 from deep_sort.detection import Detection
 from deep_sort.tracker import Tracker
 from tools import generate_detections as gdet
-
 from collections import deque
 from keras import backend
 
