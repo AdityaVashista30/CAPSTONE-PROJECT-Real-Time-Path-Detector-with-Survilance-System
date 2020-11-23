@@ -30,7 +30,6 @@ class admin(QMainWindow):
         self.oldFPage.clicked.connect(self.openOFoot)
         self.pathPage.clicked.connect(self.openTracker)
         self.logoutPage.clicked.connect(self.openLogout)
-        self.sesorPage.clicked.connect(self.openSensors)
         self.userPage.clicked.connect(self.openUsers)
         self.darkO.clicked.connect(self.Dark_Orange_Theme)
         self.darkB.clicked.connect(self.Dark_Blue_Theme)
@@ -59,9 +58,6 @@ class admin(QMainWindow):
     def openLogout(self):
         self.stop_cam()
         self.tabWidget.setCurrentIndex(6)
-    def openSensors(self):
-        self.stop_cam()
-        self.tabWidget.setCurrentIndex(4)
     def openUsers(self):
         self.stop_cam()
         self.show_users()
@@ -175,7 +171,7 @@ class admin(QMainWindow):
             if self.camBox.currentText() =="WEB CAM (TEMP)":
                 self.capture=cv2.VideoCapture(0,cv2.CAP_DSHOW) 
             self.Vname="outputVideo//"+str(time.time()).split(".")[0]+".mp4"
- 
+            
             i=0
             while i<22000:
                 i+=1
@@ -205,7 +201,7 @@ class admin(QMainWindow):
         self.imgLabel.setScaledContents(True)
         conn = sqlite3.connect('capstoneSQLDB2.db')
         cur = conn.cursor()
-        loc="H:\\Projects\\CAPSTONE"+self.Vname
+        loc="D:\\Projects\\CAPSTONE"+self.Vname
         cur.execute('SELECT Loc FROM VidHistory where loc=?',(loc,))
         temp=cur.fetchone()
         if temp is None:
