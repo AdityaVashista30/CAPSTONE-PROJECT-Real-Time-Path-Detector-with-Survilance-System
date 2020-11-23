@@ -32,7 +32,7 @@ def main(yolo):
     #Definition of the parameters
     max_cosine_distance = 0.5 #余弦距离的控制阈值
     nn_budget = None
-    nms_max_overlap = 0.3 #非极大抑制的阈值
+    nms_max_overlap = 0.3 
 
     counter = []
     #deep_sort
