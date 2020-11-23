@@ -47,7 +47,7 @@ def main(yolo):
 
     writeVideo_flag = True
     #video_path = "./output/output.avi"
-    file_path="C:\\Users\\hp\\Desktop\\video2.mp4" ##EDIT
+    file_path="D:/Projects/CAPSTONE/SAMPLES/video1.mp4" ##EDIT
     video_capture = cv2.VideoCapture(file_path)
     fps=video_capture.get(cv2.CAP_PROP_FPS)
 
@@ -56,7 +56,7 @@ def main(yolo):
         w = int(video_capture.get(3))
         h = int(video_capture.get(4))
         fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-        out = cv2.VideoWriter('output3_yolov3.mp4', fourcc, fps, (w, h))
+        out = cv2.VideoWriter('output3_yolov3S.mp4', fourcc, fps, (w, h))
         list_file = open('detection.txt', 'w')
         frame_index = -1
 
@@ -164,6 +164,7 @@ def main(yolo):
         out.release()
         list_file.close()
     cv2.destroyAllWindows()
+    
 
 if __name__ == '__main__':
     main(YOLO())
