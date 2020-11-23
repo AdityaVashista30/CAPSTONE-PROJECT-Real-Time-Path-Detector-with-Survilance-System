@@ -14,9 +14,7 @@ from deep_sort.detection import Detection as ddet
 from collections import deque
 from keras import backend
 
-
 backend.clear_session()
-
 
 pts = [deque(maxlen=30) for _ in range(9999)]
 warnings.filterwarnings('ignore')
@@ -30,7 +28,7 @@ def main(yolo):
 
     start = time.time()
     #Definition of the parameters
-    max_cosine_distance = 0.5 #
+    max_cosine_distance = 0.5 
     nn_budget = None
     nms_max_overlap = 0.3 
 
