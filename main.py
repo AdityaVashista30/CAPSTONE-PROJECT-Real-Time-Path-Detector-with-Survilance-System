@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from __future__ import division, print_function, absolute_import
 from timeit import time
 import warnings
@@ -10,11 +13,13 @@ from deep_sort import nn_matching
 from deep_sort.detection import Detection
 from deep_sort.tracker import Tracker
 from tools import generate_detections as gdet
-from deep_sort.detection import Detection as ddet
+
 from collections import deque
 from keras import backend
 
+
 backend.clear_session()
+
 
 pts = [deque(maxlen=30) for _ in range(9999)]
 warnings.filterwarnings('ignore')
@@ -28,7 +33,7 @@ def main(yolo):
 
     start = time.time()
     #Definition of the parameters
-    max_cosine_distance = 0.5 
+    max_cosine_distance = 0.5
     nn_budget = None
     nms_max_overlap = 0.3 
 
