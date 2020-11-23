@@ -30,7 +30,7 @@ def main(yolo):
 
     start = time.time()
     #Definition of the parameters
-    max_cosine_distance = 0.5 #余弦距离的控制阈值
+    max_cosine_distance = 0.5 #
     nn_budget = None
     nms_max_overlap = 0.3 
 
